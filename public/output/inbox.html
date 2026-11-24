@@ -1,1 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>101 Viral Photo Prompts</title>
+<style>
+:root{--bg:#fff7f2;--card:#ffffff;--ink:#2a1a22;--mute:#7a6670;--line:#f0d9d0;--a:#e0245e;--b:#ff8a3d;--chip:#ffe9df}
+@media (prefers-color-scheme:dark){:root{--bg:#1a1217;--card:#251a21;--ink:#fbeee8;--mute:#b79ca7;--line:#3b2a33;--a:#ff5c8a;--b:#ffa15c;--chip:#33222b}}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Trebuchet MS","Segoe UI",system-ui,sans-serif;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+header{padding:48px 20px 20px;max-width:1000px;margin:0 auto}
+h1{font:800 clamp(2.4rem,8vw,4.6rem)/.95 Georgia,"Times New Roman",serif;margin:0 0 14px;letter-spacing:-.02em;background:linear-gradient(95deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+header p{margin:0;max-width:56ch;color:var(--mute)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;padding:12px 20px;max-width:1000px;margin:0 auto;border-bottom:1px solid var(--line)}
+input{width:100%;padding:12px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+input:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:2px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px}
+.chip{flex:none;border:0;background:var(--chip);color:var(--ink);padding:7px 14px;border-radius:999px;font:inherit;font-size:.88rem;cursor:pointer}
+.chip[aria-pressed=true]{background:linear-gradient(95deg,var(--a),var(--b));color:#fff}
+main{max-width:1000px;margin:0 auto;padding:8px 20px 60px}
+h2{font:700 1.5rem Georgia,serif;margin:34px 0 12px}
+h2 small{font:400 .85rem "Trebuchet MS",sans-serif;color:var(--mute);margin-left:8px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:10px}
+li b{font-size:.95rem}
+li span{font-size:.9rem;color:var(--mute);flex:1}
+.cp{align-self:flex-start;border:1.5px solid var(--a);color:var(--a);background:transparent;border-radius:999px;padding:4px 14px;font:inherit;font-size:.82rem;cursor:pointer}
+.cp.ok{background:var(--a);color:#fff}
+#none{display:none;text-align:center;color:var(--mute);padding:40px 0}
+footer{text-align:center;color:var(--mute);font-size:.85rem;padding:0 20px 40px}
+</style>
+</head>
+<body>
+<header>
+<h1>101 prompts for photos people double-tap</h1>
+<p>Copy a prompt into any AI image editor (Gemini, ChatGPT, Photoshop AI, Firefly, Midjourney) or use it as a recipe in Lightroom, Snapseed or VSCO. Upload your photo first, then paste.</p>
+</header>
+<div class="bar">
+<input id="q" type="search" placeholder="Search 101 prompts: golden hour, anime, film, couple…" aria-label="Search prompts">
+<div class="chips" id="chips"></div>
+</div>
+<main id="list"></main>
+<p id="none">No prompts match. Try another word.</p>
+<footer>Tip: add “keep my face and features unchanged” to any prompt to preserve your likeness.</footer>
 
+<script>
+const D=[
+["Selfie glow-up",[
+["Golden hour glow","Edit my selfie to look like it was taken at golden hour: warm sunlight on my face, soft rim light in my hair, gentle lens flare, natural skin."],
+["Soft skin, real texture","Smooth skin lightly, remove blemishes and shine, but keep pores and freckles visible. Even tone, natural look, no plastic effect."],
+["Clean girl aesthetic","Give my selfie a clean-girl look: dewy skin, neutral tones, bright airy lighting, slicked-back hair, minimal and fresh."],
+["Bright eyes","Brighten my eyes, add a subtle catchlight, sharpen the iris detail, and reduce dark circles without changing my eye shape."],
+["Whiter smile","Whiten my teeth naturally to a soft ivory shade, keep shadows between teeth, and keep my smile exactly as it is."],
+["Sun-kissed tan","Add a natural sun-kissed tan with a warm bronze glow on my cheeks and shoulders. Keep the skin realistic and even."],
+["Flash photo vibe","Make my selfie look like a direct flash party photo: bright flash, slight shine, dark background, grainy y2k feel."],
+["Mirror selfie polish","Enhance my mirror selfie: fix lighting, clean the mirror smudges, straighten the lines, and add a soft warm tone."],
+["Window light portrait","Relight my selfie with soft window light from the left, gentle shadows on the right, moody and natural."],
+["Hair glow-up","Give my hair a shinier, fuller look with soft highlights, tame flyaways, and keep the colour and style the same."],
+["Jawline and contrast","Add subtle contouring and light shaping to my face using shadows and highlights only. Keep proportions natural."],
+["Red-carpet lighting","Relight my selfie with glamorous red-carpet lighting: soft key light, sparkling highlights, blurred paparazzi bokeh behind."],
+["Fresh no-makeup look","Make me look well-rested with a no-makeup makeup look: light blush, tinted lips, fluffy brows, soft focus."],
+["Moody night selfie","Turn my selfie into a moody night shot with neon pink and blue light on my face, deep shadows, and city bokeh."],
+["Vintage digicam selfie","Make my selfie look like it was shot on a 2003 compact digital camera: low resolution, warm flash, slight blur, date stamp."]]],
+["Trending AI looks",[
+["Studio Ghibli style","Turn my photo into a Studio Ghibli-style illustration with soft watercolour backgrounds, gentle colours, and dreamy clouds."],
+["3D Pixar character","Transform me into a 3D Pixar-style animated character with big expressive eyes, smooth skin, and a warm cinematic backdrop."],
+["Action figure box","Turn me into a collectible action figure in a blister pack with accessories that match my hobbies and a custom name label."],
+["Anime protagonist","Redraw me as an anime main character with sharp line art, dramatic wind in my hair, and a glowing sunset sky."],
+["Barbie-style poster","Create a pink Barbie-world poster of me: glossy plastic doll look, hot pink background, bold retro title text."],
+["Chibi sticker","Turn me into a cute chibi sticker with a thick white outline, big head, tiny body, and a playful pose."],
+["Caricature","Make a fun caricature of me with an exaggerated head and tiny body, keeping my recognisable features and expressions."],
+["Cartoon pop-art","Convert my photo into a Roy Lichtenstein pop-art comic panel with halftone dots, bold outlines, and a speech bubble."],
+["Oil painting","Repaint my photo as a classical oil painting with visible brush strokes, rich colours, and museum-style lighting."],
+["Polaroid collage","Place my photo as a Polaroid on a wooden desk with handwritten caption, tape, and other scattered vintage photos."],
+["Magazine cover","Put me on a high-fashion magazine cover with a bold masthead, cover lines, barcode, and editorial lighting."],
+["Yearbook throwback","Make me look like a 1990s school yearbook photo with a laser-blue backdrop, feathered hair, and soft focus."],
+["Retro 70s portrait","Transform my photo into a 1970s portrait: warm orange tones, film grain, flared collar, and faded edges."],
+["Comic book hero","Turn me into a comic-book superhero on a city rooftop, with cape, dynamic angle, and bold ink shading."],
+["Cyberpunk me","Give me a cyberpunk makeover: neon reflections, glowing cybernetic accents, rainy futuristic street, teal and magenta lighting."]]],
+["Cinematic and film",[
+["Wes Anderson frame","Recolour and frame my photo like a Wes Anderson movie: symmetrical, pastel palette, flat lighting, vintage props."],
+["Teal and orange","Apply a cinematic teal-and-orange grade with deep contrast, lifted blacks, and a widescreen 2.39:1 crop."],
+["Film noir","Convert to black-and-white film noir with hard shadows, venetian blind light stripes, smoke, and high contrast."],
+["Kodak Portra 400","Edit with the look of Kodak Portra 400: warm skin, pastel greens, soft contrast, and fine natural grain."],
+["Fuji 400H dreamy","Give a Fuji 400H film look: airy, cool-green shadows, creamy highlights, and gentle overexposure."],
+["35mm disposable","Make my photo look like a 35mm disposable camera shot: flash falloff, light leaks, grain, and slightly crooked framing."],
+["Movie still","Turn my photo into a movie still: shallow depth of field, anamorphic flares, moody grade, and subtle letterbox bars."],
+["Rainy window drama","Add rain streaks on a window in front of me, soft reflections, cool blue light, and a melancholic cinematic mood."],
+["Super 8 home video","Give it a Super 8 home-movie look: faded colour, heavy grain, vignette, soft scratches, and warm nostalgia."],
+["Blade Runner haze","Add orange haze, neon signs, and light fog behind me for a sci-fi noir look inspired by 80s cyberpunk films."],
+["Bollywood poster","Make my photo a vibrant retro Bollywood movie poster with hand-painted style, dramatic colours, and bold title lettering."],
+["K-drama aesthetic","Edit for a K-drama look: soft pink-beige tones, glowing skin, cherry blossoms drifting, gentle backlight."]]],
+["Aesthetic and colour grades",[
+["Dark academia","Apply dark academia tones: brown and olive, vintage library backdrop, candlelit warmth, tweed texture, soft vignette."],
+["Pinterest cottagecore","Give it a cottagecore look: soft sunlight, wildflowers, pastel greens, and a dreamy faded finish."],
+["Moody Instagram preset","Create a moody preset: crushed blacks, desaturated greens, warm skin, slight teal shadows, and subtle grain."],
+["Bright and airy","Edit to bright and airy: raise exposure, lift shadows, soft whites, pastel tones, and low contrast."],
+["Pastel dream","Convert to a pastel dreamscape with lilac, peach, and baby-blue tones, soft glow, and gentle haze."],
+["Monochrome red","Make the photo black-and-white except for one vivid red element, with crisp contrast and clean edges."],
+["Vaporwave","Apply a vaporwave grade with pink and cyan gradients, grid lines, retro sun, and glitchy scanlines."],
+["Earthy minimalist","Edit with earthy minimalist tones: beige, terracotta, sage, matte finish, clean negative space."],
+["Grainy film B&W","Convert to black-and-white with strong grain, deep blacks, and creamy highlights like Tri-X film."],
+["Neon night glow","Add neon signage glow in magenta and cyan, wet-street reflections, and a bold night-time atmosphere."],
+["Y2K sparkle","Add Y2K sparkle: glitter stars, glossy highlights, pink chrome tones, and a slight fisheye."],
+["Sunset gradient sky","Replace the sky with a pink-orange-purple sunset gradient and relight the subject to match the colours."],
+["Matte fade","Apply a matte-fade look: lifted blacks, muted highlights, soft contrast, and a slightly warm tint."],
+["Autumn palette","Shift colours to a cosy autumn palette: amber leaves, burnt orange, deep maroon, and warm golden light."]]],
+["Portraits and studio",[
+["Linkedin-ready headshot","Make this a professional headshot: neutral grey backdrop, soft studio lighting, crisp detail, and tidy attire."],
+["Editorial portrait","Turn it into an editorial fashion portrait with dramatic side lighting, rich contrast, and a clean seamless backdrop."],
+["Rembrandt lighting","Relight my face with Rembrandt lighting: a small triangle of light on the shadowed cheek, deep moody background."],
+["Colour gel studio","Add pink and blue colour-gel lighting from both sides, dark background, glossy skin highlights, club portrait style."],
+["Black and white fine art","Turn my portrait into a fine-art black-and-white with soft window light and deep, painterly shadows."],
+["Double exposure","Blend my silhouette with a forest landscape in a double exposure, soft gradients, and a clean white background."],
+["Bokeh background","Blur the background into creamy f/1.4 bokeh with warm fairy lights while keeping me razor sharp."],
+["Fashion lookbook","Edit as a fashion lookbook shot: crisp whites, clean shadows, subtle film grain, and magazine-quality retouching."],
+["Silhouette sunset","Make me a dramatic silhouette against a glowing sunset, with a clean rim light on the outline."],
+["Smoke and shadow","Add soft drifting smoke around me with a single hard spotlight and a dark moody backdrop."]]],
+["Travel and landscape",[
+["Dreamy Santorini","Place me in a whitewashed Santorini lane with blue domes, bright sunlight, and a soft pastel colour grade."],
+["Tokyo night street","Put me on a rainy Tokyo street at night with neon signs, umbrella reflections, and cinematic bokeh."],
+["Paris cafe morning","Set my photo outside a Parisian cafe at sunrise, warm golden light, croissants on the table, and gentle film tones."],
+["Swiss alps","Replace the background with snow-capped Swiss alps, crisp blue sky, and add matching cool-toned light on me."],
+["Misty mountains","Add layered fog over the mountains behind me, soft diffused light, and a calm, moody green-blue grade."],
+["Remove tourists","Remove all people from the background and fill in naturally, so the landmark looks empty and peaceful."],
+["Milky Way sky","Replace the sky with a vivid Milky Way and shooting stars, and relight the foreground with faint blue moonlight."],
+["Tropical beach","Edit to a tropical paradise: turquoise water, white sand, vivid blue sky, and a warm sun-drenched grade."],
+["Cherry blossom","Add pink cherry blossoms framing the shot, floating petals, soft spring light, and a gentle pastel finish."],
+["Drone-style view","Re-frame and grade as a top-down drone shot with strong colour contrast, clean geometry, and crisp detail."]]],
+["Fun and creative",[
+["Floating in clouds","Make me float above a sea of soft clouds at sunrise, surreal pastel sky, and gentle wind in my clothes."],
+["Mini me world","Shrink me into a miniature person standing on a giant everyday object, with tilt-shift blur and realistic shadows."],
+["Surreal gravity","Make my photo surreal: me walking on the ceiling of a room with furniture upside down and consistent lighting."],
+["Glass reflection","Add a crystal-clear glass reflection of me on a tabletop below, with prismatic light and a dark elegant background."],
+["Fire and ice","Split my portrait: icy blue frost on the left, fiery orange embers on the right, dramatic contrast."],
+["Space astronaut","Dress me as an astronaut floating by a glowing nebula, with realistic helmet reflections and space-lit shadows."],
+["Underwater","Place me underwater with sun rays, floating hair, tiny bubbles, and a turquoise colour grade."],
+["Fantasy elf","Turn me into a fantasy elf with pointed ears, forest armour, glowing runes, and a misty enchanted woodland."],
+["Wanted poster","Make a Wild West wanted poster with my photo, sepia paper, torn edges, and a funny reward line."],
+["Sticker sheet","Create a sticker sheet from my expressions: six cut-out stickers with thick white borders and playful captions."],
+["Paper cutout art","Turn my photo into layered paper-cut art with soft shadows, bold colours, and a handcrafted look."],
+["Glitch art","Add RGB-split glitch effects, scanlines, and pixel distortion around my edges, keeping my face clear."]]],
+["Couples and groups",[
+["Couple film strip","Format my couple photos as a film strip with warm film grain, sprocket holes, and handwritten dates."],
+["Wedding-day glow","Edit our photo with soft golden light, creamy skin tones, romantic haze, and gentle petal confetti."],
+["Friends polaroid wall","Turn our group photos into a wall of Polaroids with tape, doodles, and fairy lights behind."],
+["Matching outfits swap","Recolour everyone's outfits into one coordinated palette of cream and sage, keeping faces unchanged."],
+["Anniversary illustration","Redraw the two of us as a warm hand-painted illustration with soft pastel colours and a starry sky."],
+["Squad movie poster","Make our group photo a blockbuster movie poster with a dramatic title, tagline, and cinematic lighting."],
+["Bestie photobooth","Turn our selfie into a four-frame photobooth strip with black-and-white film grain and a white border."]]],
+["Food, pets and products",[
+["Food photography pop","Enhance my food photo with side lighting, rich saturation, subtle steam, and a shallow depth of field."],
+["Cafe flat lay","Re-style as a cosy cafe flat lay: warm tones, wooden table, soft shadows, and neatly aligned props."],
+["Pet portrait royal","Turn my pet into a royal oil portrait with a velvet cloak, golden frame, and dramatic lighting."],
+["Cute pet cartoon","Convert my pet's photo into a cute 3D cartoon with big eyes, soft fur detail, and a pastel backdrop."],
+["Product on marble","Place my product on white marble with soft shadows, clean reflections, and bright commercial lighting."],
+["Sneaker hero shot","Make my sneaker photo a hero shot with dramatic rim light, floating dust particles, and a dark gradient backdrop."]]]
+];
+const chips=document.getElementById('chips'),list=document.getElementById('list'),q=document.getElementById('q'),none=document.getElementById('none');
+let cat='All',n=0;const all=[];
+D.forEach(([c,items])=>items.forEach(([t,p])=>all.push({c,t,p,i:++n})));
+['All',...D.map(d=>d[0])].forEach(c=>{const b=document.createElement('button');b.className='chip';b.textContent=c;b.setAttribute('aria-pressed',c==='All');b.onclick=()=>{cat=c;[...chips.children].forEach(x=>x.setAttribute('aria-pressed',x===b));render()};chips.appendChild(b)});
+function render(){
+const s=q.value.trim().toLowerCase();list.innerHTML='';let shown=0;
+D.forEach(([c])=>{
+const m=all.filter(x=>x.c===c&&(cat==='All'||cat===c)&&(!s||(x.t+' '+x.p).toLowerCase().includes(s)));
+if(!m.length)return;shown+=m.length;
+const h=document.createElement('h2');h.innerHTML=c+'<small>'+m.length+' prompts</small>';list.appendChild(h);
+const ol=document.createElement('ol');
+m.forEach(x=>{const li=document.createElement('li');
+const b=document.createElement('b');b.textContent=x.i+'. '+x.t;
+const sp=document.createElement('span');sp.textContent=x.p;
+const bt=document.createElement('button');bt.className='cp';bt.textContent='Copy prompt';
+bt.onclick=()=>{const done=()=>{bt.textContent='Copied';bt.classList.add('ok');setTimeout(()=>{bt.textContent='Copy prompt';bt.classList.remove('ok')},1400)};
+if(navigator.clipboard)navigator.clipboard.writeText(x.p).then(done,fb);else fb();
+function fb(){const t=document.createElement('textarea');t.value=x.p;document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(e){}t.remove();done()}};
+li.append(b,sp,bt);ol.appendChild(li)});
+list.appendChild(ol)});
+none.style.display=shown?'none':'block'}
+q.oninput=render;render();
+</script>
+</body>
+</html>
